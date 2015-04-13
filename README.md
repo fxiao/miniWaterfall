@@ -26,7 +26,9 @@ row_class: "waterfall_class",
 tpl_id: "#tpl",
 loading_id: "#loading",
 page: 1,
-perpage: 10
+perpage: 10,
+load_button: "#load_button", // 点击加载按钮
+distance: 100 // 距离底部多少时加载
 }
 ```
 

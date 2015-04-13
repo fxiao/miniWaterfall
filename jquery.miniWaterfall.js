@@ -30,7 +30,9 @@
                 tpl_id: "#tpl",
                 loading_id: "#loading",
                 page: 1,
-                perpage: 10
+                perpage: 10,
+                load_button: "#load_button",
+                distance: 100,
             }, options);
 
             var div_html = "";
@@ -40,7 +42,7 @@
                 divs.push("#" + settings.row_id + i);
             }
             $(this).append(div_html); // 生成列数
-            $(this).after('<div id="page" style="display: none" data-page="' + settings.page + '" data-perpage="' + settings.perpage + '"></div>');
+            $(this).after('<div id="page" style="display: none" data-current_p="0"  data-page="' + settings.page + '" data-perpage="' + settings.perpage + '"></div>');
 
             // 每个块的插入
             function waterfall_put(json) {
@@ -59,30 +61,41 @@
                 });
             }
 
-            var current_p = 0;
-            $(window).scroll(function(){
-                if ($(document).height() - $(this).scrollTop() - $(this).height()<100) {
-                    var page = $('#page').attr('data-page');
-                    var perpage = $('#page').attr('data-perpage');
 
-                    if(page != current_p) {
-                        $(settings.loading_id).show();
-                        current_p = page;
-                        $.getJSON(settings.url, {"page": page, "perpage": perpage}, function(d) {
-                            if (d.stat !== 'ok') {
-                                alert('load data error!');
-                                $(settings.loading_id).hide();
-                                return;
-                            }
-                            waterfall_put(d.photos.photo);
+            function data_load() {
+                var page = $('#page').attr('data-page');
+                var perpage = $('#page').attr('data-perpage');
+                var current_p = $('#page').attr('data-current_p');
 
-                            page++;
-                            if(page <= d.photos.pages) {
-                                $('#page').attr('data-page', page);
-                            }
+                if(page != current_p) {
+                    $(settings.loading_id).show();
+                    $('#page').attr('data-current_p', page);
+                    $.getJSON(settings.url, {"page": page, "perpage": perpage}, function(d) {
+                        if (d.stat !== 'ok') {
+                            alert('load data error!');
                             $(settings.loading_id).hide();
-                        });
-                    }
+                            return;
+                        }
+                        waterfall_put(d.photos.photo);
+
+                        page++;
+                        if(page <= d.photos.pages) {
+                            $('#page').attr('data-page', page);
+                        }
+                        $(settings.loading_id).hide();
+                    });
+                } else {
+                    $(settings.load_button).hide();
+                }
+            }
+
+            $(settings.load_button).click(function() {
+                data_load();
+            });
+
+            $(window).scroll(function(){
+                if ($(document).height() - $(this).scrollTop() - $(this).height()<settings.distance) {
+                    data_load();
                 }
             });
         },
