@@ -5,12 +5,12 @@
  * {
  *    "photos": {
  *      "total": 60, 
- *          "photo": [
- *              "name": "heyun51@gmail.com",
- *              "price": "359.00",
- *              "id": 1796,
- *              "quantity": 0
- *          ], 
+ *      "photo": [{
+ *          "name": "heyun51@gmail.com",
+ *          "price": "359.00",
+ *          "id": 1796,
+ *          "quantity": 0
+ *      }],
  *      "perpage": 10, 
  *      "page": 4, 
  *      "pages": 6
