@@ -9,6 +9,12 @@
 $("#goods_waterfall").miniWaterfall();
 ```
 
+或
+
+```
+$("#goods_waterfall").miniWaterfall({row: 3, perpage: 20});
+```
+
 ### 默认参数
 
 ```
