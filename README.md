@@ -20,13 +20,14 @@ $("#goods_waterfall").miniWaterfall({row: 3, perpage: 20});
 ```
 {
 url: window.location.href,
-row: 4, 
+row: 4, // 瀑布流的列数
 row_id: "waterfall_id_",
 row_class: "waterfall_class",
 tpl_id: "#tpl",
 loading_id: "#loading",
-page: 1,
-perpage: 10,
+init_load: true, // 页面显示就加载一页
+page: 1, // 从几页开始
+perpage: 10, // 每页显示的数量
 load_button: "#load_button", // 点击加载按钮
 distance: 100 // 距离底部多少时加载
 }

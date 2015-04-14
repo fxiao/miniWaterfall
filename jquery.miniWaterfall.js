@@ -24,15 +24,16 @@
             // 默认值
             settings = $.extend({
                 url: window.location.href,
-                row: 4,
+                row: 4, // 瀑布流的列数
                 row_id: "waterfall_id_",
                 row_class: "waterfall_class",
                 tpl_id: "#tpl",
                 loading_id: "#loading",
+                init_load: true, // 页面显示就运行一次瀑布流
                 page: 1,
                 perpage: 10,
-                load_button: "#load_button",
-                distance: 100,
+                load_button: "#load_button", // 点击加载按钮
+                distance: 100, // 距离底部多少时加载
             }, options);
 
             var div_html = "";
@@ -87,6 +88,10 @@
                 } else {
                     $(settings.load_button).hide();
                 }
+            }
+
+            if(settings.init_load) {
+                data_load();
             }
 
             $(settings.load_button).click(function() {
