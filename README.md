@@ -29,7 +29,8 @@ init_load: true, // 页面显示就加载一页
 page: 1, // 从几页开始
 perpage: 10, // 每页显示的数量
 load_button: "#load_button", // 点击加载按钮
-distance: 100 // 距离底部多少时加载
+distance: 200, // 距离底部多少时加载
+msg_waterfull: '#msg_waterfull' // 当没有数据时显示
 }
 ```
 

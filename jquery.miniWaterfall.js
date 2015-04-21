@@ -29,11 +29,12 @@
                 row_class: "waterfall_class",
                 tpl_id: "#tpl",
                 loading_id: "#loading",
-                init_load: true, // 页面显示就运行一次瀑布流
-                page: 1,
-                perpage: 10,
+                init_load: true, // 页面显示就加载一页
+                page: 1, // 从几页开始
+                perpage: 10, // 每页显示的数量
                 load_button: "#load_button", // 点击加载按钮
-                distance: 100, // 距离底部多少时加载
+                distance: 200, // 距离底部多少时加载
+                msg_waterfull: '#msg_waterfull' // 当没有数据时显示
             }, options);
 
             var div_html = "";
@@ -42,8 +43,9 @@
                 div_html += '<div id="' + settings.row_id + i + '" class="' + settings.row_class + '"></div>';
                 divs.push("#" + settings.row_id + i);
             }
-            $(this).append(div_html); // 生成列数
+            $(this).append(div_html); // 生成列
             $(this).after('<div id="page" style="display: none" data-current_p="0"  data-page="' + settings.page + '" data-perpage="' + settings.perpage + '"></div>');
+            $(settings.msg_waterfull).hide();
 
             // 每个块的插入
             function waterfall_put(json) {
@@ -77,6 +79,10 @@
                             $(settings.loading_id).hide();
                             return;
                         }
+                        if (d.photos.total == 0){
+                          $(settings.msg_waterfull).show();
+                        }
+                        $(settings.msg_waterfull).hide();
                         waterfall_put(d.photos.photo);
 
                         page++;
