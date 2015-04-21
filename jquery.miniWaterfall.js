@@ -22,7 +22,7 @@
     $.fn.extend({
         miniWaterfall: function(options) {
             // 默认值
-            settings = $.extend({
+            var settings = $.extend({
                 url: window.location.href,
                 row: 4, // 瀑布流的列数
                 row_id: "waterfall_id_",
@@ -51,7 +51,7 @@
             function waterfall_put(json) {
                 var div_hg = new Array();
                 $.each(divs, function(i, n) {
-                    div_hg.push({"hg": $(n).outerHeight(), "id": n});
+                    div_hg.push({hg: $(n).outerHeight(), id: n});
                 });
 
                 // 按从低到高 排序 div_hg
@@ -73,7 +73,7 @@
                 if(page != current_p) {
                     $(settings.loading_id).show();
                     $('#page').attr('data-current_p', page);
-                    $.getJSON(settings.url, {"page": page, "perpage": perpage}, function(d) {
+                    $.getJSON(settings.url, {page: page, perpage: perpage}, function(d) {
                         if (d.stat !== 'ok') {
                             alert('load data error!');
                             $(settings.loading_id).hide();
@@ -110,7 +110,7 @@
                 }
             });
         },
-        nano: function(data) {
+        nano: function(data) {  // from https://github.com/trix/nano.git
             return $(this).html().replace(/\{([\w\.]*)\}/g, function(str, key) {
                 var keys = key.split("."), v = data[keys.shift()];
                 for (var i = 0, l = keys.length; i < l; i++) v = v[keys[i]];
