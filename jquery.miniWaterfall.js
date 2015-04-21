@@ -46,6 +46,7 @@
             $(this).append(div_html); // 生成列
             $(this).after('<div id="page" style="display: none" data-current_p="0"  data-page="' + settings.page + '" data-perpage="' + settings.perpage + '"></div>');
             $(settings.msg_waterfull).hide();
+            $(settings.loading_id).show();
 
             // 每个块的插入
             function waterfall_put(json) {
@@ -80,7 +81,9 @@
                             return;
                         }
                         if (d.photos.total == 0){
-                          $(settings.msg_waterfull).show();
+                            $(settings.msg_waterfull).show();
+                            $(settings.loading_id).hide();
+                            return;
                         }
                         $(settings.msg_waterfull).hide();
                         waterfall_put(d.photos.photo);
